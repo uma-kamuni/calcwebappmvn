@@ -32,7 +32,7 @@ pipeline {
                 sh 'docker images'
 
                 sh 'docker build -t calcwebappmvn:v1 .'
-`
+
                 echo "Docker Image Built Successfully!!"
                 
                 sh 'docker images'
