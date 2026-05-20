@@ -29,7 +29,8 @@ pipeline {
 				sh 'docker --version'
 				sh 'docker ps'
                 sh 'docker images'
-                sh 'docker build -t calcwebappmvn:v1 .'
+               // sh 'docker build -t calcwebappmvn:v1 .' 
+                sh 'docker build -t calcwebappmvn1:${env.BUILD_ID}v1 .'
                 echo "Docker Image Built Successfully!!"
                 sh 'docker images'
                    // junit 'target/surefire-reports/*.xml'
