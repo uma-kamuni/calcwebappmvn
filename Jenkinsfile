@@ -2,10 +2,10 @@ pipeline {
     agent {
         label 'linux' 
     }
-    // tools {
+     tools {
     //     maven 'xyz-maven'
-    //     dockerTool 'my-docker'
-    // }
+        dockerTool 'my-docker'
+     }
     stages {
         stage('Git Checkout') {
             steps {
