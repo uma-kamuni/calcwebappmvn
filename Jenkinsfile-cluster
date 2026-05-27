@@ -1,0 +1,15 @@
+pipeline {
+    agent {
+        label 'ag-2' 
+        }
+    tools {
+        terraform 'tf-install'
+    }
+    stages {
+        stage('Terraform Init') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+    }
+}
