@@ -4,6 +4,7 @@ pipeline {
     }
     environment {
         IMAGE_NAME = "calcwebappmvn:${BUILD_NUMBER}"
+        my_aws_access = credentials('my-aws-cred')
     }
     tools {
         maven 'xyz-maven'
@@ -46,9 +47,7 @@ pipeline {
             }
         }
  
-
-
-        stage('Package') {
+        stage('Package Application .war') {
             steps {
                 sh 'ls -la'
                 sh 'mvn clean'
@@ -57,7 +56,7 @@ pipeline {
                 sh 'ls -la'
             }
         }
-        stage('docker') {
+        stage('docker image build') {
             steps {
                 sh 'which docker'
                 sh 'docker --version'
@@ -69,7 +68,21 @@ pipeline {
                 sh 'docker images'
             }
         }
+
+        stage('ECRLogin') {
+            steps {
+                sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 964742912902.dkr.ecr.us-west-2.amazonaws.com'
+                echo "Logged in to AWS ECR Successfully!!"
+
+                sh 'docker tag ${IMAGE_NAME} 964742912902.dkr.ecr.us-west-2.amazonaws.com/dev/calculator:${BUILD_NUMBER}'
+                echo "Docker Image Tagged Successfully!!"
+                sh 'docker images'
+            }
+        }
+        
     }
+
+
 
     post {
         success {
