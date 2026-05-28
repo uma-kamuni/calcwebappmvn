@@ -73,10 +73,10 @@ pipeline {
 
         stage('ECRLogin') {
             steps {
-                sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 964742912902.dkr.ecr.us-west-2.amazonaws.com'
+                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 327773202533.dkr.ecr.us-east-1.amazonaws.com'
                 echo "Logged in to AWS ECR Successfully!!"
 
-                sh 'docker tag ${IMAGE_NAME} 964742912902.dkr.ecr.us-west-2.amazonaws.com/dev/calculator:${BUILD_NUMBER}'
+                sh 'docker tag ${IMAGE_NAME} 327773202533.dkr.ecr.us-east-1.amazonaws.com/dev/calculator:${BUILD_NUMBER}'
                 echo "Docker Image Tagged Successfully!!"
                 sh 'docker images'
             }
@@ -84,7 +84,7 @@ pipeline {
 
         stage('Push to ECR') {
             steps {
-                sh 'docker push 964742912902.dkr.ecr.us-west-2.amazonaws.com/dev/calculator:${BUILD_NUMBER}'
+                sh 'docker push 327773202533.dkr.ecr.us-east-1.amazonaws.com/dev/calculator:${BUILD_NUMBER}'
                 echo "Docker Image Pushed to ECR Successfully!!"
             }
         }
