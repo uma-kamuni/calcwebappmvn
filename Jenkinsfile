@@ -62,7 +62,8 @@ pipeline {
                 sh 'docker --version'
                 sh 'docker ps'
                 sh 'docker images'
-               // sh 'docker rmi -f ${docker images -a -q}'
+                //sh 'docker rmi -f ${docker images -q}'
+                //docker system prune -a
                 // sh 'docker build -t calcwebappmvn:v1 .' 
                 sh 'docker build -t ${IMAGE_NAME} .'
                 echo "Docker Image Built Successfully!!"
@@ -80,7 +81,13 @@ pipeline {
                 sh 'docker images'
             }
         }
-        
+
+        stage('Push to ECR') {
+            steps {
+                sh 'docker push 964742912902.dkr.ecr.us-west-2.amazonaws.com/dev/calculator:${BUILD_NUMBER}'
+                echo "Docker Image Pushed to ECR Successfully!!"
+            }
+        }
     }
 
 
