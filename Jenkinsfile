@@ -14,7 +14,7 @@ pipeline {
 
         stage('Git Checkout') {
             steps {
-                git url: 'https://github.com/mayur-z/calcwebappmvn.git'
+                git url: 'https://github.com/uma-kamuni/calcwebappmvn.git'
                 echo "Code Checked-out Successfully!!";
                 sh 'ls -la'
             }
