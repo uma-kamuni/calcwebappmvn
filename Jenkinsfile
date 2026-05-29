@@ -88,6 +88,31 @@ pipeline {
                 echo "Docker Image Pushed to ECR Successfully!!"
             }
         }
+
+
+        stage('kubeconfig setup') {
+            steps {
+                sh 'aws eks update-kubeconfig --region us-west-2 --name my-cluster'
+                echo "Kubeconfig setup completed successfully!!"
+            }
+        }
+
+        stage('get all resources') {
+            steps {
+
+                sh 'kubectl get all'
+                echo "Verified access to EKS cluster successfully!!"
+
+                //sh 'kubectl apply -f k8s-deployment.yaml'
+                //echo "Application Deployed to EKS Successfully!!"
+            }
+        }
+
+
+
+
+
+
     }
 
 
