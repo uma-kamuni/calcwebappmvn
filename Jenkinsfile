@@ -88,6 +88,16 @@ pipeline {
                 echo "Docker Image Pushed to ECR Successfully!!"
             }
         }
+
+
+        stage('kubeconfig setup') {
+            steps {
+                sh 'aws eks update-kubeconfig --region us-west-2 --name my-cluster'
+                echo "Kubeconfig setup completed successfully!!"
+            }
+        }
+
+
     }
 
 
