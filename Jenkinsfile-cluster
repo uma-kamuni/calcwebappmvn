@@ -3,7 +3,7 @@ pipeline {
         label 'ag-2' 
         }
 
-    # parameters to apply and destroy the infrastructure
+    //parameters to apply and destroy the infrastructure
     parameters {
         choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose to apply or destroy the infrastructure')
     }    
