@@ -1,40 +1,63 @@
 pipeline {
     agent {
-        label 'ag-2' 
-        }
-
-    //parameters to apply and destroy the infrastructure
-    parameters {
-        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose to apply or destroy the infrastructure')
-    }    
-    environment {
-        my_aws_access= credentials('my-aws-cred')
+        label 'ag-2'
     }
+
+    // parameters to apply and destroy the infrastructure
+    parameters {
+        choice(
+            name: 'ACTION',
+            choices: ['apply', 'destroy'],
+            description: 'Choose to apply or destroy the infrastructure'
+        )
+    }
+
+    environment {
+        my_aws_access = credentials('my-aws-cred')
+    }
+
     tools {
         terraform 'tf-install'
     }
+
     stages {
+
         stage('Terraform Init') {
             steps {
                 sh 'terraform init'
             }
         }
-         stage('Terraform fmt-validate') {
+
+        stage('Terraform fmt-validate') {
             steps {
                 sh '''
-                terraform fmt
-                terraform validate
+                    terraform fmt
+                    terraform validate
                 '''
             }
         }
-         stage('Terraform plan') {
+
+        stage('Terraform Plan') {
             steps {
                 sh 'terraform plan'
             }
         }
-         stage('Terraform APPLY') {
+
+        stage('Terraform Apply') {
+            when {
+                expression { params.ACTION == 'apply' }
+            }
             steps {
                 sh 'terraform apply -auto-approve'
+            }
+        }
+
+        stage('Terraform Destroy') {
+            when {
+                expression { params.ACTION == 'destroy' }
+            }
+            steps {
+                sh 'terraform destroy -auto-approve'
             }
         }
     }
