@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: calc
-        image: 964742912902.dkr.ecr.us-west-2.amazonaws.com/dev/calculator:20
+        image: docker push 327773202533.dkr.ecr.us-east-1.amazonaws.com/dev/calculator:24
         ports:
         - containerPort: 80
         resources:
@@ -42,5 +42,4 @@ spec:
     - protocol: TCP
       port: 80        # The public port exposed by the cloud load balancer
       targetPort: 80  
-
 
