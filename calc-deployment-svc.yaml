@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: calc
-        image: docker push 327773202533.dkr.ecr.us-east-1.amazonaws.com/dev/calculator:24
+        image: 327773202533.dkr.ecr.us-east-1.amazonaws.com/dev/calculator:24
         ports:
         - containerPort: 80
         resources:
