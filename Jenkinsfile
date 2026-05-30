@@ -95,7 +95,7 @@ pipeline {
             steps {
                 sh 'aws eks update-kubeconfig --region ${Region} --name my-cluster'
                 sh '''kubectl create secret docker-registry my-ecr-secret-cbz \
-                      --docker-server=964742912902.dkr.ecr.${Region}.amazonaws.com \
+                      --docker-server=327773202533.dkr.ecr.${Region}.amazonaws.com \
                       --docker-username=AWS \
                       --docker-password=$(aws ecr get-login-password --region ${Region})'''
 
